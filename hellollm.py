@@ -41,7 +41,7 @@ model = GPT2LMHeadModel(config)
 dataset = LineByLineTextDataset(
     tokenizer=tokenizer,
     file_path="./text/remeo_and_juliet.txt",
-    block_size=32,
+    block_size=128,
 )
 
 data_collator = DataCollatorForLanguageModeling(

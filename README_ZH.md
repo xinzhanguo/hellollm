@@ -1,5 +1,7 @@
 # Hello LLM
 
+[English](https://github.com/xinzhanguo/hellollm/blob/main/README.md)
+
 从新训练一个大语言模型。
 **注意是从新训练一个大语言模型，不是微调。**
 

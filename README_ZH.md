@@ -1,9 +1,10 @@
 # Hello LLM
 
-new train a llm model.
-not fine-turning.
+从新训练一个大语言模型。
+**注意是从新训练一个大语言模型，不是微调。**
 
-## how to train
+
+## 运行代码
 
 ```
 # create env
@@ -19,17 +20,14 @@ pip install -r requirements.txt
 python hellollm.py
 ```
 
-## Detail
+## 训练说明
 
-#### prepare data
+#### 一、准备数据
+首先我们要为训练准备数据，我们基于<罗密欧与朱丽叶>进行训练。
 
-First we need to prepare the data for training, we are training based on <Romeo and Juliet>.
-
-#### train tokenizer
-
-Tokenization is to divide the input text into meaningful subunits (tokens).
-Through the following code, a new tokenizer based on our data
-
+#### 二、训练分词器
+分词(tokenization) 是把输入文本切分成有意义的子单元（tokens）。
+通过以下代码，根据我们的数据一个新的分词器：
 ```
 from tokenizers import Tokenizer
 from tokenizers.models import BPE
@@ -63,8 +61,8 @@ tokenizer_config.json
 vocab.json
 ```
 
-#### Training model
-
+#### 三、训练模型
+利用下面代码进行模型训练：
 ```
 from transformers import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer
 
@@ -76,12 +74,15 @@ tokenizer.add_special_tokens({
   "pad_token": "<pad>",
   "mask_token": "<mask>"
 })
+# 配置GPT2模型参数
 config = GPT2Config(
   vocab_size=tokenizer.vocab_size,
   bos_token_id=tokenizer.bos_token_id,
   eos_token_id=tokenizer.eos_token_id
 )
+# 创建模型
 model = GPT2LMHeadModel(config)
+# 训练数据我们用按行分割
 from transformers import LineByLineTextDataset
 dataset = LineByLineTextDataset(
     tokenizer=tokenizer,
@@ -92,7 +93,9 @@ from transformers import DataCollatorForLanguageModeling
 data_collator = DataCollatorForLanguageModeling(
     tokenizer=tokenizer, mlm=False, mlm_probability=0.15
 )
+
 from transformers import Trainer, TrainingArguments
+# 配置训练参数
 training_args = TrainingArguments(
     output_dir="./output",
     overwrite_output_dir=True,
@@ -108,19 +111,22 @@ trainer = Trainer(
     train_dataset=dataset,
 )
 trainer.train()
+# 保存模型
 model.save_pretrained('./shakespeare')
-
 ```
 
-ls ./shakespeare and find added three files.
+成功运行代码，我们发现shakespeare目录下面多了三个文件:
 ```
 config.json
 generation_config.json
 pytorch_model.bin
 ```
 
-#### test model
+现在我们就成功生成训练了一个大语言模型。
 
+#### 四、测试模型
+
+我们用文本生成，对模型进行测试代码如下:
 ```
 from transformers import pipeline, set_seed
 generator = pipeline('text-generation', model='./shakespeare')

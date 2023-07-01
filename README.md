@@ -3,7 +3,7 @@
 [Chinese/中文](https://github.com/xinzhanguo/hellollm/blob/main/README_ZH.md)
 
 new train a llm model.
-not fine-turning.
+not fine tuned model.
 
 ## how to train
 

@@ -8,6 +8,6 @@ RUN pip install tokenizers==0.13.3 transformers==4.30.2 && \
 WORKDIR /work
 
 COPY text text
-COPY job.py job.py
+COPY hellollm.py hellollm.py
 
-CMD ["python", "job.py"]
+CMD ["python", "hellollm.py"]

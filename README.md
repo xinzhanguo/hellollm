@@ -6,7 +6,13 @@ new train a llm model.
 not fine tuned model.
 
 ## how to train
-
+docker
+```
+docker build -t hellollm:beta .
+docker run -it hellollm:beta sh
+python hellollm.py
+```
+linux 
 ```
 # create env
 python3 -m venv ~/.env

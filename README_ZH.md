@@ -8,6 +8,13 @@
 
 ## 运行代码
 
+docker
+```
+docker build -t hellollm:beta .
+docker run -it hellollm:beta sh
+python hellollm.py
+```
+linux 
 ```
 # create env
 python3 -m venv ~/.env

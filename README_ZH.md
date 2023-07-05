@@ -11,6 +11,8 @@
 docker
 ```
 docker build -t hellollm:beta .
+# 可以选择以GPU方式运行
+# docker run -it --gpus all hellollm:beta sh
 docker run -it hellollm:beta sh
 python hellollm.py
 ```

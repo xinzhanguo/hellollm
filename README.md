@@ -9,6 +9,8 @@ not fine tuned model.
 docker
 ```
 docker build -t hellollm:beta .
+# use gpu
+# docker run -it --gpus all hellollm:beta sh
 docker run -it hellollm:beta sh
 python hellollm.py
 ```

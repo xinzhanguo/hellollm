@@ -10,6 +10,10 @@
 
 docker
 ```
+# 下载代码
+git clone git@github.com:xinzhanguo/hellollm.git
+cd hellollm
+# 编译镜像
 docker build -t hellollm:beta .
 # 可以选择以GPU方式运行
 # docker run -it --gpus all hellollm:beta sh

@@ -14,27 +14,27 @@ docker build -t hellollm:beta .
 # 可以选择以GPU方式运行
 # docker run -it --gpus all hellollm:beta sh
 docker run -it hellollm:beta sh
-python hellollm.py
+python sanguo.py
 ```
 linux 
 ```
-# create env
+# 创建环境
 python3 -m venv ~/.env
-# active env
+# 加载环境
 source ~/.env/bin/activate
-# download code
+# 下载代码
 git clone git@github.com:xinzhanguo/hellollm.git
 cd hellollm
-# install requirements
+# 安装依赖
 pip install -r requirements.txt
-# run train
-python hellollm.py
+# 运行代码
+python sanguo.py
 ```
 
 ## 训练说明
 
 #### 一、准备数据
-首先我们要为训练准备数据，我们基于<罗密欧与朱丽叶>进行训练。
+首先我们要为训练准备数据，我们基于<三国演义>进行训练。
 
 #### 二、训练分词器
 分词(tokenization) 是把输入文本切分成有意义的子单元（tokens）。
@@ -55,15 +55,15 @@ tokenizer.decoder = ByteLevelDecoder()
 
 special_tokens = ["<s>","<pad>","</s>","<unk>","<mask>"]
 trainer = BpeTrainer(vocab_size=50000, show_progress=True, inital_alphabet=ByteLevel.alphabet(), special_tokens=special_tokens)
-files = ["text/remeo_and_juliet.txt"]
+files = ["text/sanguoyanyi.txt"]
 
 tokenizer.train(files, trainer)
 
 newtokenizer = GPT2TokenizerFast(tokenizer_object=tokenizer)
-newtokenizer.save_pretrained("./shakespeare")
+newtokenizer.save_pretrained("./sanguo")
 ```
 
-ls shakespeare:
+ls sanguo:
 ```
 merges.txt
 special_tokens_map.json
@@ -77,7 +77,7 @@ vocab.json
 ```
 from transformers import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer
 
-tokenizer = GPT2Tokenizer.from_pretrained("./shakespeare")
+tokenizer = GPT2Tokenizer.from_pretrained("./sanguo")
 tokenizer.add_special_tokens({
   "eos_token": "</s>",
   "bos_token": "<s>",
@@ -97,7 +97,7 @@ model = GPT2LMHeadModel(config)
 from transformers import LineByLineTextDataset
 dataset = LineByLineTextDataset(
     tokenizer=tokenizer,
-    file_path="./text/remeo_and_juliet.txt",
+    file_path="./text/sanguoyanyi.txt",
     block_size=128,
 )
 from transformers import DataCollatorForLanguageModeling
@@ -123,10 +123,10 @@ trainer = Trainer(
 )
 trainer.train()
 # 保存模型
-model.save_pretrained('./shakespeare')
+model.save_pretrained('./sanguo')
 ```
 
-成功运行代码，我们发现shakespeare目录下面多了三个文件:
+成功运行代码，我们发现sanguo目录下面多了三个文件:
 ```
 config.json
 generation_config.json
@@ -140,8 +140,8 @@ pytorch_model.bin
 我们用文本生成，对模型进行测试代码如下:
 ```
 from transformers import pipeline, set_seed
-generator = pipeline('text-generation', model='./shakespeare')
+generator = pipeline('text-generation', model='./sanguo')
 set_seed(42)
-txt = generator("Hello", max_length=30)
+txt = generator("吕布", max_length=30)
 print(txt)
 ```

@@ -8,6 +8,7 @@ RUN pip install tokenizers==0.13.3 transformers==4.30.2 && \
 WORKDIR /work
 
 COPY text text
+COPY sanguo.py sanguo.py
 COPY hellollm.py hellollm.py
 
 CMD ["python", "hellollm.py"]

@@ -2,8 +2,7 @@
 
 [Chinese/中文](https://github.com/xinzhanguo/hellollm/blob/main/README_ZH.md)
 
-new train a llm model.
-not fine tuned model.
+This project is the initialization training of a large language model(LLM).
 
 ## how to train
 docker

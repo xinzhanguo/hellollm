@@ -40,7 +40,7 @@ model = GPT2LMHeadModel(config)
 # setting train data
 dataset = LineByLineTextDataset(
     tokenizer=tokenizer,
-    file_path="./text/remeo_and_juliet.txt",
+    file_path="./text/romeo_and_juliet.txt",
     block_size=128,
 )
 

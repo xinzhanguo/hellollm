@@ -21,7 +21,7 @@ tokenizer.decoder = ByteLevelDecoder()
 special_tokens = ["<s>", "<pad>", "</s>", "<unk>", "<mask>"]
 trainer = BpeTrainer(vocab_size=50000, show_progress=True,
                      inital_alphabet=ByteLevel.alphabet(), special_tokens=special_tokens)
-files = ["text/remeo_and_juliet.txt"]
+files = ["text/romeo_and_juliet.txt"]
 tokenizer.train(files, trainer)
 newtokenizer = GPT2TokenizerFast(tokenizer_object=tokenizer)
 newtokenizer.save_pretrained(save_path)

@@ -55,7 +55,7 @@ tokenizer.decoder = ByteLevelDecoder()
 
 special_tokens = ["<s>","<pad>","</s>","<unk>","<mask>"]
 trainer = BpeTrainer(vocab_size=50000, show_progress=True, inital_alphabet=ByteLevel.alphabet(), special_tokens=special_tokens)
-files = ["text/remeo_and_juliet.txt"]
+files = ["text/romeo_and_juliet.txt"]
 
 tokenizer.train(files, trainer)
 
@@ -94,7 +94,7 @@ model = GPT2LMHeadModel(config)
 from transformers import LineByLineTextDataset
 dataset = LineByLineTextDataset(
     tokenizer=tokenizer,
-    file_path="./text/remeo_and_juliet.txt",
+    file_path="./text/romeo_and_juliet.txt",
     block_size=128,
 )
 from transformers import DataCollatorForLanguageModeling
